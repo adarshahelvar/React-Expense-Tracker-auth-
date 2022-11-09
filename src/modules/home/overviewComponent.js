@@ -38,6 +38,14 @@ const OverviewComponent = (props)=>{
                 <AddTransaction onClick={()=>toggleAddTransactionVisible(!isAddTransactionVisible)}>{isAddTransactionVisible ? "Cancel" : "Add"}</AddTransaction>
             </BalanceBox>
             {isAddTransactionVisible && <AddTransactionView toggleAddTransactionVisible={toggleAddTransactionVisible} addTransaction={props.addTransaction}/>}
+            <ExpenseContainer>
+                <ExpenseBox isIncome={false}>
+                    Expense <span>$1000</span>
+                </ExpenseBox>
+                <ExpenseBox isIncome={true}>
+                    Income <span>$5000</span>
+                </ExpenseBox>
+            </ExpenseContainer>
         </Container>
     )
 }
@@ -96,6 +104,27 @@ const RadioBox = styled.div`
     & input{
         width: unset;
         margin: 0 10px;
+    }
+`;
+
+const ExpenseContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    gap: 12px;
+    margin: 20px;
+`;
+
+const ExpenseBox = styled.div`
+    display:flex;
+    flex-direction: column;
+    border: 1px solid #e6e8e6;
+    padding: 15px 20px;
+    width: 135px;
+    font-size: 14px;
+    & span{
+        font-weight: bold;
+        font-size: 20px;
+        color:${props => props.isIncome ? 'green' : 'red'}
     }
 `;
  
