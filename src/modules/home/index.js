@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import OverviewComponent from './overviewComponent';
 import TransactionComponent from './transactionComponent';
@@ -25,9 +25,11 @@ const HomeComponent = (props)=>{
         updatedIncome(inc);
     };
 
+    useEffect(()=> calculateBalance(), [transation])
+
     return(
         <Container>
-            <OverviewComponent addTransaction={addTransaction}/>
+            <OverviewComponent addTransaction={addTransaction} expense={expense} income={income} />
             <TransactionComponent transation={transation}/>
         </Container>
     )

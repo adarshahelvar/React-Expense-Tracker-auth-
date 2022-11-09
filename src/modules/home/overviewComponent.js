@@ -34,16 +34,16 @@ const OverviewComponent = (props)=>{
     return(
         <Container>
             <BalanceBox>
-                Balance = 10000;
+                Available Balance is ₹ {props.income-props.expense}
                 <AddTransaction onClick={()=>toggleAddTransactionVisible(!isAddTransactionVisible)}>{isAddTransactionVisible ? "Cancel" : "Add"}</AddTransaction>
             </BalanceBox>
             {isAddTransactionVisible && <AddTransactionView toggleAddTransactionVisible={toggleAddTransactionVisible} addTransaction={props.addTransaction}/>}
             <ExpenseContainer>
                 <ExpenseBox isIncome={false}>
-                    Expense <span>$1000</span>
+                    Expense <span>₹{props.expense}</span>
                 </ExpenseBox>
                 <ExpenseBox isIncome={true}>
-                    Income <span>$5000</span>
+                    Income <span>₹{props.income}</span>
                 </ExpenseBox>
             </ExpenseContainer>
         </Container>
