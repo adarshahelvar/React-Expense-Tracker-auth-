@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import HOmeComponent from "./modules/home";
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ function App() {
   return (
     <Container>
       <Header>Expense Tracker</Header>
+      <HOmeComponent />
     </Container>
   );
 }
