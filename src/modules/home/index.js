@@ -1,13 +1,23 @@
+import { useState } from "react";
 import styled from "styled-components";
 import OverviewComponent from './overviewComponent';
 import TransactionComponent from './transactionComponent';
 
 const HomeComponent = (props)=>{
+
+    const [transation, updatedTransaction] = useState([]);
+
+    const addTransaction =(payload)=>{
+        const transationArray = [...transation];
+        transationArray.push(payload);
+        updatedTransaction(transationArray)
+    };
+
     return(
         <Container>
             HomeComponent
-            <OverviewComponent />
-            <TransactionComponent />
+            <OverviewComponent addTransaction={addTransaction}/>
+            <TransactionComponent transation={transation}/>
         </Container>
     )
 }

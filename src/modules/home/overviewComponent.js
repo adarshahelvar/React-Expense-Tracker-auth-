@@ -8,13 +8,13 @@ const AddTransactionView =(props)=>{
     const [type, setType] = useState("EXPENSE");
 
     const addTransation = ()=>{
-        console.log({amount,description,type});
+        props.addTransaction({amount:Number(amount),description,type, id: Date.now()});
         props.toggleAddTransactionVisible();
     };
 
     return (
         <AddTransactionContainer>
-            <input placeholder="Amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+            <input placeholder="Amount" type="number" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
             <input placeholder="Description" value={description} onChange={(e)=>setDescription(e.target.value)}/>
             <RadioBox>
                 <input type="radio" id="expense" name="type" value="EXPENSE" checked={type==='EXPENSE'} onChange ={(e)=>setType(e.target.value)}/>
@@ -37,7 +37,7 @@ const OverviewComponent = (props)=>{
                 Balance = 10000;
                 <AddTransaction onClick={()=>toggleAddTransactionVisible(!isAddTransactionVisible)}>{isAddTransactionVisible ? "Cancel" : "Add"}</AddTransaction>
             </BalanceBox>
-            {isAddTransactionVisible && <AddTransactionView toggleAddTransactionVisible={toggleAddTransactionVisible}/>}
+            {isAddTransactionVisible && <AddTransactionView toggleAddTransactionVisible={toggleAddTransactionVisible} addTransaction={props.addTransaction}/>}
         </Container>
     )
 }
