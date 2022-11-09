@@ -1,27 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import HOmeComponent from "./modules/home";
+import HomeComponent from "./modules/home";
 
 const Container = styled.div`
+  background-color: white;
+  color: #0d1d2c;
   display: flex;
-  flex-direction:column;
-  align-items:center;
-  margin:30px 0 10px;
-  font-family:Montserrat;
-`;
-const Header = styled.span`
-  color: black;
-  font-size:25px;
-  font-weight:bold;
+  flex-direction: column;
+  margin: 0 10px;
+  align-items: center;
+  height: 100vh;
+  width: 98%;
+  padding-top: 30px ;
+  font-family: Montserrat;
 `;
 
-function App() {
+const Header = styled.div`
+  background-color: white;
+  color: #0d1d2c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 22px;
+  font-size: 25px;
+  font-weight: bold;
+`;
+const App = () => {
   return (
     <Container>
       <Header>Expense Tracker</Header>
-      <HOmeComponent />
+      <HomeComponent />
     </Container>
   );
-}
+};
 
 export default App;

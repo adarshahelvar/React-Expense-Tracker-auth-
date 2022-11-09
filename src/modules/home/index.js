@@ -1,47 +1,56 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import OverviewComponent from './overviewComponent';
-import TransactionComponent from './transactionComponent';
-
-const HomeComponent = (props)=>{
-
-    const [transation, updatedTransaction] = useState([]);
-    const [expense, updatedExpense] = useState([0]);
-    const [income, updatedIncome] = useState([0]);
-
-    const addTransaction =(payload)=>{
-        const transationArray = [...transation];
-        transationArray.push(payload);
-        updatedTransaction(transationArray)
-    };
-
-    const calculateBalance = ()=>{
-        let exp = 0; //Expense =0
-        let inc = 0; //Income =0
-        transation.map((payload)=>{
-            payload.type === "EXPENSE" ? (exp =exp+payload.amount) : (inc =inc+payload.amount)
-        })
-        updatedExpense(exp);
-        updatedIncome(inc);
-    };
-
-    useEffect(()=> calculateBalance(), [transation])
-
-    return(
-        <Container>
-            <OverviewComponent addTransaction={addTransaction} expense={expense} income={income} />
-            <TransactionComponent transation={transation}/>
-        </Container>
-    )
-}
+import OverViewComponent from "./overviewComponent";
+import TransactionsComponent from "./transactionComponent";
 
 const Container = styled.div`
+  background-color: white;
+  color: #0d1d2c;
   display: flex;
-  flex-direction:column;
-  align-items:center;
-  margin:30px 0 10px;
-  font-family:Montserrat;
+  flex-direction: column;
+  padding: 10px 22px;
+  font-size: 18px;
   width: 360px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
+const HomeComponent = (props) => {
+    const [transactions, updateTransaction] = useState([]);
+    const [expense, updateExpense] = useState(0);
+    const [income, updateIncome] = useState(0);
+
+    const calculateBalance = () => {
+        let exp = 0;
+        let inc = 0;
+        transactions.map((payload) =>
+            payload.type === "EXPENSE"
+                ? (exp = exp + payload.amount)
+                : (inc = inc + payload.amount),
+        );
+        updateExpense(exp);
+        updateIncome(inc);
+    };
+    useEffect(() => calculateBalance(), [transactions]);
+
+    const addTransaction = (payload) => {
+        const transactionArray = [...transactions];
+        transactionArray.push(payload);
+        updateTransaction(transactionArray);
+    };
+    return (
+        <Container>
+            <OverViewComponent
+                expense={expense}
+                income={income}
+                addTransaction={addTransaction}
+            />
+            {transactions?.length ? (
+                <TransactionsComponent transactions={transactions} />
+            ) : (
+                ""
+            )}
+        </Container>
+    );
+};
 export default HomeComponent;
