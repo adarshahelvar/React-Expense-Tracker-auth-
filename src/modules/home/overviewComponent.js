@@ -1,33 +1,43 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const AddTransactionView =()=>{
+const AddTransactionView =(props)=>{
+
+    const [amount, setAmount] = useState();
+    const [description, setDescription] = useState();
+    const [type, setType] = useState("EXPENSE");
+
+    const addTransation = ()=>{
+        console.log({amount,description,type});
+        props.toggleAddTransactionVisible();
+    };
+
     return (
         <AddTransactionContainer>
-            <input placeholder="Amount"/>
-            <input placeholder="Description"/>
+            <input placeholder="Amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+            <input placeholder="Description" value={description} onChange={(e)=>setDescription(e.target.value)}/>
             <RadioBox>
-                <input type="radio" id="expense" name="type" value="EXPENSE"/>
+                <input type="radio" id="expense" name="type" value="EXPENSE" checked={type==='EXPENSE'} onChange ={(e)=>setType(e.target.value)}/>
                 <label htmlFor="expense">Expense</label>
-                <input type="radio" id="income" name="type" value="INCOME"/>
+                <input type="radio" id="income" name="type" value="INCOME" checked={type==='INCOME'} onChange ={(e)=>setType(e.target.value)}/>
                 <label htmlFor="expense">Income</label>
             </RadioBox>
-            <AddTransaction>Add Transaction</AddTransaction>
+            <AddTransaction onClick={addTransation}>Add Transaction</AddTransaction>
         </AddTransactionContainer>
     )
 };
 
 const OverviewComponent = (props)=>{
 
-    const [isAddTransactionVisible, toggleAddTransactionVisible] = useState(true);
+    const [isAddTransactionVisible, toggleAddTransactionVisible] = useState(false);
 
     return(
         <Container>
             <BalanceBox>
                 Balance = 10000;
-                <AddTransaction>{isAddTransactionVisible ? "Cancel" : "Add"}</AddTransaction>
+                <AddTransaction onClick={()=>toggleAddTransactionVisible(!isAddTransactionVisible)}>{isAddTransactionVisible ? "Cancel" : "Add"}</AddTransaction>
             </BalanceBox>
-            {isAddTransactionVisible && <AddTransactionView />}
+            {isAddTransactionVisible && <AddTransactionView toggleAddTransactionVisible={toggleAddTransactionVisible}/>}
         </Container>
     )
 }
@@ -69,7 +79,7 @@ const AddTransactionContainer = styled.div`
     gap: 10px;
     width: 100%;
     padding: 15px 20px;
-    margin: 10px 20px;
+    margin:  20px;
     & input{
         outline:none;
         padding: 10px 20px;
